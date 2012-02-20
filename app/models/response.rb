@@ -1,0 +1,63 @@
+class Response < ActiveRecord::Base
+  has_many :advertisement_responses
+  has_many :advertisements, :through => :advertisement_responses
+  has_one :search
+
+  before_create :get_and_scrape_response
+  after_create :update_with_response
+
+  def get_and_scrape_response
+
+    headers = { 
+      "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:9.0) Gecko/20100101 Firefox/9.0",
+      "Referer" => "http://www.google.com/"
+    }
+
+    search_object = Search.find self.search_id
+    url = "http://www.google.com/search?q=#{search_object.keyword.gsub(' ', '+')}"
+    body = open(url, headers).read
+
+    self.response_html = body
+
+  end
+
+  def update_with_response
+
+    doc = Nokogiri::HTML self.response_html
+        
+    selectors = ".vsra, #bottomads li, .vsta"
+    selectors = {
+      ".vsta" => {
+        :headline => 'h3 a',
+        :domain => 'cite',
+        :body_text => '.ac',
+        :hyperlink => "h3 a"
+      }
+    }
+        
+    selectors.each do |ad_selector,ad_attribute_selector|
+      doc.css(ad_selector).each do |node|
+        ad_attributes = {}
+        ad_attribute_selector.each do |attribute, selector|
+          if attribute == :hyperlink
+            hyperlink = node.at_css(selector).attributes['href'].text
+            query_string_params = hyperlink.split('?').last.split('&');
+            ad_attributes[attribute] = query_string_params.detect { |param| param.include? 'adurl'}.split('adurl=').last
+          else
+            ad_attributes[attribute] = node.at_css(selector).text
+          end
+        end
+        
+        ad = Advertisement.find_by_hyperlink ad_attributes[:hyperlink]
+        if ad.nil?
+          ad = Advertisement.create ad_attributes
+        end
+        
+        ad.responses << self
+      end
+    end
+
+  end
+  #end scrape_and_update
+
+end

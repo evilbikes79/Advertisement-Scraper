@@ -1,0 +1,25 @@
+%h1 Listing advertisements
+
+%table
+  %tr
+    %th Headline
+    %th Body text
+    %th Hyperlink
+    %th Domain
+    %th
+    %th
+    %th
+
+  - @advertisements.each do |advertisement|
+    %tr
+      %td= advertisement.headline
+      %td= advertisement.body_text
+      %td= advertisement.hyperlink
+      %td= advertisement.domain
+      %td= link_to 'Show', advertisement
+      %td= link_to 'Edit', edit_advertisement_path(advertisement)
+      %td= link_to 'Destroy', advertisement, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Advertisement', new_advertisement_path

@@ -1,0 +1,13 @@
+%p#notice= notice
+
+%p
+  %b Search:
+  = @response.search_id
+%p
+  - @response.advertisements.size
+  - @response.advertisements.each do |ad|
+    = ad.domain
+
+= link_to 'Edit', edit_response_path(@response)
+\|
+= link_to 'Back', responses_path

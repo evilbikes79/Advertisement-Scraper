@@ -1,0 +1,22 @@
+= form_for @advertisement do |f|
+  -if @advertisement.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@advertisement.errors.count, "error")} prohibited this advertisement from being saved:"
+      %ul
+        - @advertisement.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :headline
+    = f.text_field :headline
+  .field
+    = f.label :body_text
+    = f.text_field :body_text
+  .field
+    = f.label :hyperlink
+    = f.text_field :hyperlink
+  .field
+    = f.label :domain
+    = f.text_field :domain
+  .actions
+    = f.submit 'Save'

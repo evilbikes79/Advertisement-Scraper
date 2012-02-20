@@ -1,0 +1,21 @@
+%h1 Listing advertisement_responses
+
+%table
+  %tr
+    %th Advertisement
+    %th Response
+    %th
+    %th
+    %th
+
+  - @advertisement_responses.each do |advertisement_response|
+    %tr
+      %td= advertisement_response.advertisement_id
+      %td= advertisement_response.response_id
+      %td= link_to 'Show', advertisement_response
+      %td= link_to 'Edit', edit_advertisement_response_path(advertisement_response)
+      %td= link_to 'Destroy', advertisement_response, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Advertisement response', new_advertisement_response_path

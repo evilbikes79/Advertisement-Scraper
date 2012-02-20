@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Headline:
+  = @advertisement.headline
+%p
+  %b Body text:
+  = @advertisement.body_text
+%p
+  %b Hyperlink:
+  = @advertisement.hyperlink
+%p
+  %b Domain:
+  = @advertisement.domain
+
+= link_to 'Edit', edit_advertisement_path(@advertisement)
+\|
+= link_to 'Back', advertisements_path

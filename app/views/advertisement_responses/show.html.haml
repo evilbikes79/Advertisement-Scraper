@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Advertisement:
+  = @advertisement_response.advertisement_id
+%p
+  %b Response:
+  = @advertisement_response.response_id
+
+= link_to 'Edit', edit_advertisement_response_path(@advertisement_response)
+\|
+= link_to 'Back', advertisement_responses_path

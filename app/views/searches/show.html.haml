@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Keyword:
+  = @search.keyword
+  %br
+  - @search.responses.each do |response|
+    = link_to 'Response', response_path(response)
+    = link_to 'Response_Shorthand', response
+
+= button_to 'create new response', responses_path(:response => {:search_id => @search.id})  
+
+= link_to 'Edit', edit_search_path(@search)
+\|
+= link_to 'Back', searches_path
