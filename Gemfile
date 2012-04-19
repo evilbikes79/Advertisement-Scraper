@@ -33,8 +33,10 @@ end
 gem 'capistrano'
 
 #To use debugger
-gem 'ruby-debug', :platforms => :ruby_18
-gem 'ruby-debug19', :platforms => :ruby_19
+group :development, :test do
+  gem 'ruby-debug', :platforms => :ruby_18
+  gem 'ruby-debug19', :platforms => :ruby_19
+end
 
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
