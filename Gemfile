@@ -20,8 +20,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-
-
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -32,12 +30,14 @@ end
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
 
 #To use debugger
- gem 'ruby-debug'
+gem 'ruby-debug', :platforms => :ruby_18
+gem 'ruby-debug19', :platforms => :ruby_19
 
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "jquery-rails"
 gem "nokogiri"
+gem "heroku"
