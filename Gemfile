@@ -43,3 +43,4 @@ gem "haml-rails"
 gem "jquery-rails"
 gem "nokogiri"
 gem "heroku"
+gem 'pg'
